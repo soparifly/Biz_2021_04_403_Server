@@ -46,3 +46,5 @@ https:..naver.com:443/
 ### localhost, 127.0.0.1
 *컴퓨터의 Local Loop Bakck Address
 *Local에서 Server등의 서비스를 실행하고 테스트할수 있는 주소
+
+###git 오류내기
