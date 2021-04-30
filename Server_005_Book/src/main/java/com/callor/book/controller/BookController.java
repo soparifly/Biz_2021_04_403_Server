@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -58,6 +60,10 @@ public class BookController extends HttpServlet {
 			bookVO.setBk_isbn(bk_isbn);
 			bookVO.setBk_title(bk_title);
 			bookVO.setBk_price(Integer.valueOf(bk_price));
+			bookVO.setBk_ccode("C0001");
+			bookVO.setBk_acode("A0001");
+			bookVO.setBk_date("2019-10-01");
+			
 			bService.insert(bookVO);
 			
 			
@@ -67,9 +73,24 @@ public class BookController extends HttpServlet {
 			out.printf("도서명 : %s ", bk_title);
 			out.printf("가격: %s ", bk_price);
 			out.close();
-			
 		} else if(subPath.equals("/select")) {
+			
 			List<BookDTO> booklist = bService.selectAll();
+			
+			
+		} else if (subPath.endsWith("/isbn")) {
+			
+			String bk_isbn = req.getParameter("bk_isbn");
+			BookDTO bookDTO = bService.findByID(bk_isbn);
+			
+			
+			
+			
+			ServletContext app = this.getServletContext();
+			app.setAttribute("BOOK", bookDTO);
+			RequestDispatcher disp = app.getRequestDispatcher("/WEB-INF/views/book.jsp");
+			
+			disp.forward(req, resp);
 			
 			// 컨트롤러시에는 서버를 리스타트해줘야한다
 		} else {

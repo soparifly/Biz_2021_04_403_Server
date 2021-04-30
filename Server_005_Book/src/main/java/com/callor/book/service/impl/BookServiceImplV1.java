@@ -1,17 +1,76 @@
 package com.callor.book.service.impl;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 import com.callor.book.model.BookDTO;
 import com.callor.book.model.BookVO;
 import com.callor.book.service.BookService;
+import com.callor.book.service.DBContract;
 
 public class BookServiceImplV1 implements BookService {
+/*
+ * DB와 연동한 Service
+ 
+ * DB연결을 하고 
 
+ * SQL을 작성하고 
+ * SQL Packing하고 
+ * Packing된 객체를 사용하여 SQL 실행
+ * 
+ * 
+ * 조회할경우는 수신된 데이터를 처리하는 
+ * 
+ * 
+ */
+	
+	
+	protected Connection dbConn;
+	public BookServiceImplV1() {
+		this.dbConn = DBContract.getDBConnection();
+	}
 	@Override
 	public void insert(BookVO bookVO) {
 		// TODO Auto-generated method stub
-
+		//앞뒤로 빈칸을 한칸씩 넣어서 오류방지
+		String sql =  " INSERT INTO tbl_books ";
+		sql += " (bk_isbn, "
+				+ " bk_title, "
+				+ " bk_ccode, "
+				+ " bk_acode, "
+				+ " bk_date, "
+				+ "bk_price, "
+				+ "bk_pages) ";
+		//sql = "VALUES (" + bookVO.getBk_isbn()..;
+		
+		sql += "VALUES(?,?,?,?,?,?,?)";
+		System.out.println(sql);
+		
+		//String type의 SQL명령문을
+		//Oracle에 전송하기위해 Packet으로 만들기
+		PreparedStatement pStr = null;
+		try {
+			pStr = dbConn.prepareStatement(sql);
+			pStr.setString(1, bookVO.getBk_isbn());
+			pStr.setString(2, bookVO.getBk_title());
+			pStr.setString(3, bookVO.getBk_ccode());
+			pStr.setString(4, bookVO.getBk_acode());
+			pStr.setString(5, bookVO.getBk_date());
+			pStr.setInt(6, bookVO.getBk_price());
+			pStr.setInt(7, bookVO.getBk_pages());
+			//db에 반영하라는 명령어
+			pStr.executeUpdate();
+			pStr.close();
+			System.out.println("Insert OK!!");
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 	@Override
@@ -22,7 +81,38 @@ public class BookServiceImplV1 implements BookService {
 
 	@Override
 	public BookDTO findByID(String bk_isbn) {
-		// TODO Auto-generated method stub
+		// TODO 도서 검색
+		
+		String sql = " SELECT * FROM view_도서정보 ";
+		sql += " WHERE ISBN = ? ";
+		
+		PreparedStatement pStr = null;
+		
+		try {
+			pStr = dbConn.prepareStatement(sql);
+			pStr.setString(1, bk_isbn.trim());
+			ResultSet result = pStr.executeQuery();
+			
+			if(result.next()) {
+				BookDTO bookDTO = new BookDTO();
+				bookDTO.setBk_isbn(result.getString("ISBN"));
+				bookDTO.setBk_title(result.getString("도서명"));
+				bookDTO.setBk_cname(result.getString("출판사명"));
+				bookDTO.setBk_cceo(result.getString("저자명"));
+				bookDTO.setBk_au_tel(result.getString("저자연락처"));
+				
+				return bookDTO;
+			} else {
+				return null;
+			}
+			
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return null;
 	}
 
