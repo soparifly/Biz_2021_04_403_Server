@@ -30,6 +30,7 @@ public class DBContract {
 				if (dbConn == null) {
 					dbConn = DriverManager.getConnection(url, username, password);
 				}
+				System.out.println("오라클 접속 OK!!");
 
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -47,7 +48,7 @@ public class DBContract {
 
 	} //end static
 	
-	public Connection getDBConnection() {
+	public static Connection getDBConnection() {
 		return dbConn;
 	}
 }

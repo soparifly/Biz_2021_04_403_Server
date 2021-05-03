@@ -12,6 +12,8 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BookRentVO {
+	
+	
 	private String br_seq;//number
 	private String br_sdate;//	varchar2(10 byte)
 	private String br_isbn;//char(13 byte)

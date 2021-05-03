@@ -10,11 +10,13 @@ public interface BookRentService {
  * 최소한으로 CRUD를 구현하기위한 인터페이스선언
  * 
  */
+
+	
 	
 	public List<BookRentDTO> selectAll();
 	
 	//PK값으로 조회하기
-	public void findById(Long seq);
+	public BookRentDTO findById(Long seq);
 //PK값으로 조회되는 것제외하면 모두 리스트형식이다
 	
 	//도서코드로 대여목록조회
