@@ -12,13 +12,16 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry kind="lib" path="/Users/kimsojeong/work/MYjdk/lombok.jar"/>
-	<classpathentry kind="lib" path="/Users/kimsojeong/work/MYjdk/ojdbc6.jar"/>
-	<classpathentry kind="lib" path="/Users/kimsojeong/work/MYjdk/taglibs-standard-jstlel-1.2.5.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v9.0">
 		<attributes>
 			<attribute name="owner.project.facets" value="jst.web"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/bizworks/javaworks/myJDK/InputService.jar"/>
+	<classpathentry kind="lib" path="C:/bizworks/javaworks/myJDK/kimbyulooKJDK.jar"/>
+	<classpathentry kind="lib" path="C:/bizworks/javaworks/myJDK/lombok.jar"/>
+	<classpathentry kind="lib" path="C:/bizworks/javaworks/myJDK/ojdbc6.jar"/>
+	<classpathentry kind="lib" path="C:/bizworks/javaworks/myJDK/taglibs-standard-spec-1.2.5.jar"/>
+	<classpathentry kind="lib" path="C:/bizworks/javaworks/myJDK/taglibs-standard-impl-1.2.5.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

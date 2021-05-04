@@ -96,18 +96,13 @@ public class BookRentServiceImplV1 implements BookRentService {
 			// 아래의 2개의 코드에 의해서 where 주문번호 = seq값 형식의 SQL이 만들어진다
 			pStr = dbConn.prepareStatement(sql);
 			pStr.setLong(1, seq);
-
-//			ResultSet rSet = pStr.executeQuery();
-//			if (rSet.next()) {
-//				// vo에 담기
-//
-//				rSet.close();
-//				pStr.close();
-
 			// PK로 조회를 했기때문에
 			// List 에는 1개 밖에 데이터가없다
 			// list의 0번 데이터만 getter하여 DTO에 담기
-			BookRentDTO brDTO = this.select(pStr).get(0);
+			List<BookRentDTO> brList= this.select(pStr);
+			BookRentDTO brDTO = null;
+			if(brList != null && brList.size()>0)
+				brDTO = brList.get(0);
 			pStr.close();
 			return brDTO;
 

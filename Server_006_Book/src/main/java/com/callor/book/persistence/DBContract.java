@@ -20,7 +20,7 @@ public class DBContract {
 
 		String jdbcDriver = "oracle.jdbc.OracleDriver";
 
-		String url = "jdbc:oracle:thin:@10.211.55.3:1521:xe";
+		String url = "jdbc:oracle:thin:@localhost:1521:xe";
 		String username = "bookuser";
 		String password = "bookuser";
 
