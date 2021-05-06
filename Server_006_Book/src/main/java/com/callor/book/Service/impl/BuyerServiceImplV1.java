@@ -7,10 +7,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.callor.book.Service.BuyerService;
 import com.callor.book.model.BuyerDTO;
 import com.callor.book.model.BuyerVO;
 import com.callor.book.persistence.DBContract;
+import com.callor.book.Service.BuyerService;
 
 public class BuyerServiceImplV1 implements BuyerService{
 

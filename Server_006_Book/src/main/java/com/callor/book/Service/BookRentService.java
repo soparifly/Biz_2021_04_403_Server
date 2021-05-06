@@ -45,6 +45,6 @@ public interface BookRentService {
 	 */
 	public int insert(BookRentVO bookRentVO);
 	public int update(BookRentVO bookRentVO);
-	public int delete(BookRentVO bookRentVO);
+	public int delete(Long seq);
 	
 }

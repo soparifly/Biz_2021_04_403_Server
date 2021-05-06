@@ -36,10 +36,16 @@
 for (BuyerDTO d: buList){
 }
 
+items = "Contorller 에서 받은 list,배열"
+list를 전체반복하면서 각각의 요소를 Getter하여 var로 지정된 변수에 담기 
+El teg를 사용하여 각각의 변수를 화면에 출력 
+
 --%>
 
 <c:forEach items="${BUYERS}" var="BUYER">
-<p><a href = "order/page2?bu_code=${BUYER.bu_code}"></a>,${BUYER.bu_name},${BUYER.bu_addr},${BUYER.bu_addr}
+
+
+<p><a href = "page2?bu_code=${BUYER.bu_code}">${BUYER.bu_name}</a></p>${BUYER.bu_addr},${BUYER.bu_addr}
 </c:forEach>
 </body>
 </html>

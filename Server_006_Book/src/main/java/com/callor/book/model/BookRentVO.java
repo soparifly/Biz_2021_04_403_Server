@@ -19,5 +19,5 @@ public class BookRentVO {
 	private String br_isbn;//char(13 byte)
 	private String br_bcode;//	char(5 byte)
 	private String br_edate;//	varchar2(10 byte)
-	private String br_price;//	number
+	private Integer br_price;//	number
 }

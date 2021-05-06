@@ -7,10 +7,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.callor.book.Service.BookRentService;
 import com.callor.book.model.BookRentDTO;
 import com.callor.book.model.BookRentVO;
 import com.callor.book.persistence.DBContract;
+import com.callor.book.Service.BookRentService;
 
 public class BookRentServiceImplV1 implements BookRentService {
 
@@ -199,7 +199,7 @@ public class BookRentServiceImplV1 implements BookRentService {
 	}
 
 	@Override
-	public int delete(BookRentVO bookRentVO) {
+	public int delete(Long seq) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
