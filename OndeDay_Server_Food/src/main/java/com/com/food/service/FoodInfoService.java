@@ -8,12 +8,15 @@ import com.com.food.model.FoodVO;
 public interface FoodInfoService {
 	
 	//모두 조회하기
-	public List<FoodVO> selectAll();
+	public List<FoodDTO> selectAll();
 	
 	//날짜값으로 입력하기
-	public FoodDTO select(String eat_date);
+	public FoodDTO findByData(String eat_date);
 	
 	//섭취정보 등록
-	String eatInsert(FoodVO foodVO);
+	public String eatInsert(FoodVO foodVO);
+	
+	//식품명으로 조회하기
+	public List<FoodDTO> findByFoodName(String name);
 	
 }

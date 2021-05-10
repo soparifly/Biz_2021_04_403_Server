@@ -25,7 +25,7 @@ public class FoodDTO {
 //	private int fd_gi = 0;
 //	private int fd_tan = 0;
 //	private int fd_dang = 0;
-
+	private Long eat_seq;
 	private String eat_date;
 	private String fd_code;// CHAR(7)
 	private String fd_name;// nVARCHAR2(200)

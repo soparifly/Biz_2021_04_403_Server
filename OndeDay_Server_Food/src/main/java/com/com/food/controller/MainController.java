@@ -2,8 +2,13 @@ package com.com.food.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,6 +20,7 @@ import com.com.food.model.FoodDTO;
 import com.com.food.model.FoodVO;
 import com.com.food.service.FoodInfoService;
 import com.com.food.service.FoodSerivceImplV1;
+import com.sun.net.httpserver.Authenticator.Result;
 
 @WebServlet("/")
 public class MainController extends HttpServlet {
@@ -26,38 +32,16 @@ public class MainController extends HttpServlet {
 		fdService = new FoodSerivceImplV1();
 
 	}
-
-	@Override
+		@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+			resp.setContentType("text/html;charset = UTF-8");
+		String fd_name =req.getParameter("fd_name");
+		FoodDTO fdDTO = fdService.findByData(fd_name);
 		String subPath = req.getPathInfo();
-		resp.setContentType("Text/html;charset = UTF-8");
-		List<FoodVO> FoodList = fdService.selectAll(); 
-		
 		PrintWriter out = resp.getWriter();
-		
-		if(subPath.equals("/select")) {
-			//상품명받기
-			out.println("상품명을 검색합니다");
-			String fd_name = req.getParameter("fd_name");
-			
-			FoodDTO foodDTO = fdService.select("fd_name");
-			
-			ServletContext app = this.getServletContext();
-			
-			app.setAttribute("FOOD", foodDTO);
-			
-			req.getRequestDispatcher("WEB-INF/views/home.jsp").forward(req, resp);
-			
-			
-			
-			
-			
-		} else if(subPath.equals("/insert")) {
-		}
-
-		}
-		
-		
+		ServletContext app = this.getServletContext();
+		app.setAttribute("FOOD", fdDTO);
+		RequestDispatcher disp = app.getRequestDispatcher("/WEB-INF/views/home.jsp");
 	}
 
+}
