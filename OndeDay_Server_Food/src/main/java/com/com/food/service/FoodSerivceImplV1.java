@@ -7,9 +7,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.com.food.model.EATDTO;
 import com.com.food.model.FoodDTO;
 import com.com.food.model.FoodVO;
 import com.com.food.persistence.DBContract;
+import com.com.food.persistence.DBInfo;
 
 public class FoodSerivceImplV1 implements FoodInfoService {
 
@@ -22,31 +24,36 @@ public class FoodSerivceImplV1 implements FoodInfoService {
 	
 	protected List<FoodDTO> select(PreparedStatement pStr) throws SQLException{
 		List<FoodDTO> fdList = new ArrayList<FoodDTO>();
+		
 		ResultSet rStr = pStr.executeQuery();
+		
 		while(rStr.next()) {
+			
 			FoodDTO fdDTO = new FoodDTO();
-			fdDTO.setEat_seq(rStr.getLong("seq"));
-			fdDTO.setEat_date(rStr.getString("eat_date"));
-			fdDTO.setFd_name(rStr.getString("fd_name"));
-			fdDTO.setFd_order(rStr.getInt("fd_order"));
-			fdDTO.setFd_weight(rStr.getInt("fd_weight"));
-			fdDTO.setFd_kcal(rStr.getInt("fd_kcal"));
-			fdDTO.setFd_dan(rStr.getInt("fd_dan"));
-			fdDTO.setFd_gi(rStr.getInt("fd_gi"));
-			fdDTO.setFd_tan(rStr.getInt("fd_tan"));
-			fdDTO.setFd_dang(rStr.getInt("fd_dang"));
+			fdDTO.setCb_name(rStr.getString(DBInfo.FOOD.cb_name));
+			fdDTO.setFd_code(rStr.getString(DBInfo.FOOD.fd_code));
+			fdDTO.setCp_name(rStr.getString(DBInfo.FOOD.cp_name));
+			fdDTO.setFd_name(rStr.getString(DBInfo.FOOD.fd_name));
+			fdDTO.setFd_order(rStr.getInt(DBInfo.FOOD.fd_order));
+			fdDTO.setFd_weight(rStr.getInt(DBInfo.FOOD.fd_weight));
+			fdDTO.setFd_kcal(rStr.getInt(DBInfo.FOOD.fd_kcal));
+			fdDTO.setFd_dan(rStr.getInt(DBInfo.FOOD.fd_dan));
+			fdDTO.setFd_gi(rStr.getInt(DBInfo.FOOD.fd_gi));
+			fdDTO.setFd_tan(rStr.getInt(DBInfo.FOOD.fd_tan));
+			fdDTO.setFd_dang(rStr.getInt(DBInfo.FOOD.fd_dang));
 			fdList.add(fdDTO);
 			
 		}
-				return null;		
+		rStr.close();
+		return fdList;		
 	}
 
 	@Override
 	public List<FoodDTO> selectAll() {
-		// TODO 전체 섭취정보 보기
+		// TODO 전체 식품정보보기
 
 		PreparedStatement pStr = null;
-		String sql = " SELECT * FROM tbl_myfoods; ";
+		String sql = " SELECT * FROM view_식품목록 ";
 
 		try {
 			pStr = dbConn.prepareStatement(sql);
@@ -63,11 +70,12 @@ public class FoodSerivceImplV1 implements FoodInfoService {
 
 	@Override
 	public FoodDTO findByData(String eat_data) {
-		// TODO 식품정보검색
+		// TODO 식품이력검색
 
 		String sql = "SELECT VIEW view_섭취정보 ";
-		sql += " WHRER 섭취날짜 = ? ";
-		
+		sql += " WHERE ";
+		sql +=  " 섭취일 ";
+		sql += " LIKE '%' || ? || '%' ";
 		
 		PreparedStatement pStr = null;
 
@@ -76,12 +84,12 @@ public class FoodSerivceImplV1 implements FoodInfoService {
 			pStr.setString(1, eat_data.trim());
 			// table에 저장된 데이터와 상품정보 데이터와 조인하여
 			// ㄴ날짜별 섭취한 칼로리 단백질 지방 당류 등의 양을 조회해야한다
-			List<FoodDTO> fdList = this.select(pStr);
-			FoodDTO fdDTO = null;
-			if(fdDTO != null && fdList.size()>0)
-				fdDTO = fdList.get(0);
+			List<FoodDTO> eaList = this.select(pStr);
+			EATDTO eatDTO = null;
+			if(eatDTO != null && eaList.size()>0)
+				eatDTO = eaList.get(0);
 			pStr.close();
-			return fdDTO;
+			return eatDTO;
 			
 		} catch (SQLException e) {
 
@@ -96,7 +104,7 @@ public class FoodSerivceImplV1 implements FoodInfoService {
 		// TODO 섭취량을 입력하면 서버에 저장하는 메서드
 		String sql = "INSERT INTO tbl_myfoods ";
 		sql += " (eat_seq, eat_date, eat_ccode, eat_order) ";
-		sql += " VALUES ( ?//seq하나씩 증가하는 명령어,?,?,? ) ";
+		sql += " VALUES ( EAT_SEQ.NEXTVAL ,?,?,? ) ";
 
 		System.out.println(sql);
 
@@ -104,14 +112,13 @@ public class FoodSerivceImplV1 implements FoodInfoService {
 
 		try {
 			pStr = dbConn.prepareStatement(sql);
-			pStr.setString(1, foodVO.getEat_seq());
-			pStr.setString(2, foodVO.getEat_date());
-			pStr.setString(3, foodVO.getEat_ccode());
-			pStr.setInt(4, foodVO.getEat_order());
+			pStr.setString(1, foodVO.getEat_date());
+			pStr.setString(2, foodVO.getEat_ccode());
+			pStr.setInt(3, foodVO.getEat_order());
 			pStr.executeUpdate();
 			pStr.close();
 			System.out.println("업데이트완료");
-
+			System.out.println(sql);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -121,16 +128,18 @@ public class FoodSerivceImplV1 implements FoodInfoService {
 	}
 
 	@Override
-	public List<FoodDTO> findByFoodName(String name) {
+	public List<FoodDTO> findByFoodName(String fd_name) {
 		// TODO 식품정보 이름으로 찾기
 		
-		String sql = " SELECT * FROM view_식품정보 ";
-		sql += " WHERE 식품명 Like '%' || ? || '%' ";;
+		String sql = " SELECT * FROM view_식품목록 ";
+		sql += " WHERE ";
+		sql += DBInfo.FOOD.fd_name ;
+		sql += " Like '%' || ? || '%' ";
 		
 		PreparedStatement pStr = null;
 		try {
 			pStr =dbConn.prepareStatement(sql);
-			pStr.setString(1, name);
+			pStr.setString(1, fd_name.trim());
 			
 			List<FoodDTO> fdList = this.select(pStr);
 			pStr.close();

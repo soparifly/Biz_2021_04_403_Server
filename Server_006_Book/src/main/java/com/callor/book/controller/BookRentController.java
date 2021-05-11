@@ -44,6 +44,7 @@ public class BookRentController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// rent/* 요청이되면 * 위치에 부착되는
+		
 		// Sub요청을 분리해낸다
 		// rent/seq라고 요청을하면
 		// subPath 에는 /seq라는 문자열이 담길것이다

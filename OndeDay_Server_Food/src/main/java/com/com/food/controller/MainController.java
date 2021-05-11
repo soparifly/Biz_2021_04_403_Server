@@ -24,24 +24,22 @@ import com.sun.net.httpserver.Authenticator.Result;
 
 @WebServlet("/")
 public class MainController extends HttpServlet {
-	
+
 	protected FoodInfoService fdService;
-	
+
 	public MainController() {
-
 		fdService = new FoodSerivceImplV1();
-
 	}
-		@Override
+
+	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-			resp.setContentType("text/html;charset = UTF-8");
-		String fd_name =req.getParameter("fd_name");
-		FoodDTO fdDTO = fdService.findByData(fd_name);
-		String subPath = req.getPathInfo();
-		PrintWriter out = resp.getWriter();
-		ServletContext app = this.getServletContext();
-		app.setAttribute("FOOD", fdDTO);
-		RequestDispatcher disp = app.getRequestDispatcher("/WEB-INF/views/home.jsp");
-	}
+		// Servlet으로 매개체
+		resp.setContentType("text/html;charset = UTF-8");
+//		String subPath = req.getPathInfo();
+//		
+//		PrintWriter out = resp.getWriter();
+				req.getRequestDispatcher("/WEB-INF/views/home.jsp").forward(req, resp);
+			
 
+	}
 }

@@ -8,11 +8,12 @@
 </head>
 <body>
 <h1> 먹은 내용 등록하기 </h1>
-<p><label>날짜</label>
-<input name="eat_date" value="${eat_date}"/></p>
-<p><label>식품코드</label>
-<input name="eat_ccode" value="${eat_ccode}"/></p>
-<p><label>섭취량</label>
-<input name="eat_order"value="${eat_order}"/></p>
+<form>
+<p><label>날짜</label> <input name="eat_date"></p>
+<p><label >섭취량</label><input name="eat_order"/></p>
+<p><label>식품 코드: </label><input name ="fd_code" value ="${CODE}"></p>
+<button>등록하기</button>
+
+</form>
 </body>
 </html>
