@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.com.food.model.EATDTO;
+import com.com.food.model.EatDTO;
 import com.com.food.model.FoodDTO;
 import com.com.food.model.FoodVO;
 import com.com.food.persistence.DBContract;
@@ -69,7 +69,7 @@ public class FoodSerivceImplV1 implements FoodInfoService {
 	}
 
 	@Override
-	public FoodDTO findByData(String eat_data) {
+	public List<EatDTO> findByData(String eat_data) {
 		// TODO 식품이력검색
 
 		String sql = "SELECT VIEW view_섭취정보 ";
@@ -84,12 +84,12 @@ public class FoodSerivceImplV1 implements FoodInfoService {
 			pStr.setString(1, eat_data.trim());
 			// table에 저장된 데이터와 상품정보 데이터와 조인하여
 			// ㄴ날짜별 섭취한 칼로리 단백질 지방 당류 등의 양을 조회해야한다
-			List<FoodDTO> eaList = this.select(pStr);
-			EATDTO eatDTO = null;
-			if(eatDTO != null && eaList.size()>0)
-				eatDTO = eaList.get(0);
+			List<EatDTO> eatList = this.eatSelect(pStr);
+			EatDTO eatDTO = null;
+			if(eatDTO != null && eatList.size()>0)
+				eatDTO = eatList.get(0);
 			pStr.close();
-			return eatDTO;
+			return eatList;
 			
 		} catch (SQLException e) {
 
@@ -97,6 +97,32 @@ public class FoodSerivceImplV1 implements FoodInfoService {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	protected List<EatDTO> eatSelect(PreparedStatement pStr) throws SQLException{
+		List<EatDTO> eatList = new ArrayList<EatDTO>();
+		ResultSet rStr = pStr.executeQuery();
+		
+		while(rStr.next()) {
+			EatDTO eatDTO = new EatDTO();
+			eatDTO.setEat_seq(rStr.getInt("eat_seq"));
+			eatDTO.setEat_data(rStr.getString("섭취일"));
+			eatDTO.setEat_name(rStr.getString("식품명"));
+			eatDTO.setEat_code(rStr.getString("식품코드"));
+			eatDTO.setEat_order(rStr.getInt("회제공량"));
+			eatDTO.setEat_weight(rStr.getInt("총제공량"));
+			eatDTO.setEat_oweight(rStr.getInt("내가섭취한량"));
+			eatDTO.setEat_kcal(rStr.getInt("에너지"));
+			eatDTO.setEat_dan(rStr.getInt("단백질"));
+			eatDTO.setEat_gi(rStr.getInt("지방"));
+			eatDTO.setEat_tan(rStr.getInt("탄수화물"));
+			eatDTO.setEat_dang(rStr.getInt("총당"));
+			eatList.add(eatDTO);
+			
+		}
+		
+		rStr.close();
+		return eatList;
+		
 	}
 
 	@Override

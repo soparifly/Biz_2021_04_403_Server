@@ -2,6 +2,7 @@ package com.com.food.service;
 
 import java.util.List;
 
+import com.com.food.model.EatDTO;
 import com.com.food.model.FoodDTO;
 import com.com.food.model.FoodVO;
 
@@ -11,7 +12,7 @@ public interface FoodInfoService {
 	public List<FoodDTO> selectAll();
 	
 	//날짜값으로 입력하기
-	public FoodDTO findByData(String eat_date);
+	public List<EatDTO> findByData(String eat_date);
 	
 	//섭취정보 등록
 	public String eatInsert(FoodVO foodVO);

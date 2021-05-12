@@ -9,8 +9,8 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class EATDTO {
-
+public class EatDTO {
+	//날짜값으로 select 할 DTO
 	private int eat_seq; // EAT_SEQ
 	private String eat_data;// 섭취일
 	private String eat_name;// 식품명
