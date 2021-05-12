@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.com.food.model.EatDTO;
 import com.com.food.model.FoodDTO;
 import com.com.food.service.FoodInfoService;
 import com.com.food.service.FoodSerivceImplV1;
@@ -19,25 +20,25 @@ import com.com.food.service.FoodSerivceImplV1;
 public class SelectController extends HttpServlet {
 
 	protected FoodInfoService fdService;
-	
+
 	public SelectController() {
 		fdService = new FoodSerivceImplV1();
 	}
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.getRequestDispatcher("/WEB-INF/views/start.jsp").forward(req, resp);		
+		req.getRequestDispatcher("/WEB-INF/views/start.jsp").forward(req, resp);
 		resp.setContentType("text/html;charset = UTF-8");
-		
+
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("text/html;charset = UTF-8");
 		req.setCharacterEncoding("UTF-8");
-		
+
 		String fd_name = req.getParameter("fd_name");
-		if(fd_name.equals("")&&fd_name.equals(null)) {
+		if (fd_name.equals("") && fd_name.equals(null)) {
 			PrintWriter out = resp.getWriter();
 			out.println("입력값이 없습니다");
 		} else {
@@ -45,14 +46,24 @@ public class SelectController extends HttpServlet {
 			System.out.println("입력한 값" + fd_name);
 			System.out.println("목록찾습니다");
 			fdList = fdService.findByFoodName(fd_name);
-		
 
 			req.setAttribute("FOODS", fdList);
 			req.getRequestDispatcher("/WEB-INF/views/start.jsp").forward(req, resp);
 		}
+		String eat_date = req.getParameter("eat_date");
+		if (eat_date.equals("") && eat_date.equals(null)) {
+			PrintWriter out = resp.getWriter();
+			out.println("입력값이 없습니다");
+
+		} else {
+			List<EatDTO> eatList = new ArrayList<EatDTO>();
+			System.out.println("입력한값 eat_date");
+			eatList = fdService.findByData(eat_date);
+			
+			req.setAttribute("EATS", eatList);
+		}
 //		String subPath = req.getPathInfo();
 
-
 	}
-	
+
 }
