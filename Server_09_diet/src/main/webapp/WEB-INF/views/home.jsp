@@ -6,19 +6,24 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-p { text-align: center;}
-input {   width : 200px;
-      border : 0.5px solid #cccccc}
-a { text-decoration-line : none;
-   color : #20B2AA   ;}
-h1, h2, h3, h4, h5, h6 {text-align: center;}
-table {
-   border-top : 1px solid #cccccc;
-   border-collapse: collapse;}
-th,td {   padding : 15px 10px; 
-   border-top : 1px solid #cccccc;
-   text-align: center}
-body { font-family : "Noto Sans CJK KR Light", "돋움", dotum, arial,"굴림", gulim}
+h1{
+background-color: rgba(0,0,255,0.5);
+color:while;
+padding:1.2rem;
+text-alingn: center;
+}
+a {
+	text-decoration :none;
+}
+/* CSS 3 를 사용한 interactiv 스타일 지정
+동적(dynamic) 스타일 지정 
+*/
+/* a tag 에 마우스가 "떠" 있으면  */
+a:hover{
+	text-decoration: underline;
+	background-color: rgb(0,2,5,2.8)
+}
+
 </style>
 </head>
 <body>
