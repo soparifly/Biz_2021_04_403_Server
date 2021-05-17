@@ -15,8 +15,8 @@ import com.callor.diet.model.FoodDTO;
 import com.callor.diet.model.MyFoodVO;
 import com.callor.diet.service.FoodService;
 import com.callor.diet.service.MyFoodService;
-import com.callor.diet.service.MyFoodServiceImplV1;
 import com.callor.diet.service.impl.FoodServiceImplV1;
+import com.callor.diet.service.impl.MyFoodServiceImplV1;
 
 @WebServlet("/food/*")
 public class FoodController extends HttpServlet {

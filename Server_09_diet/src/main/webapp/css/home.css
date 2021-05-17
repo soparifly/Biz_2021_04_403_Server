@@ -1,0 +1,36 @@
+@charset "UTF-8";
+div{
+	width:80%;
+	margin:10px auto;
+	background-color:rgba(0, 255, 0, 0.6);
+}
+input{
+	border:1px solid green;
+	padding:9px;
+	margin:10px;
+	border-radius:15px;
+}
+label{
+	display:inline-block;
+	width:100px;
+	text-align:right;
+}
+table{
+	border-collapse:collapse;
+	border:1px solid green;
+	width:80%;
+	margin:10px auto;
+}
+h1{
+	background-color: rgba(0, 0, 255, 0.5);
+	color:bold;
+	padding:1.2rem;
+	text-align:center;
+}
+a{
+	text-decoration:none;
+}
+a:hover{
+	text-decoration:underline;
+	background-color:rgb(0, 2, 5, 2.8)
+}
