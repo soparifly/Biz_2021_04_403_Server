@@ -1,0 +1,54 @@
+@charset "UTF-8";
+
+h1{
+	background-color: 6D9933;
+	color: 292E0F;
+}	
+
+*{
+	margin:0;
+	padding:0;
+	box-sizing:border-box;
+	
+}
+h1{
+	background-color: 3EBBA5;
+	text-align:center;
+	/*
+	HTML, CSS에서의 단위구조
+	dp,sp,pt,px :절대값으로 단위지정하기
+	rem(em) : 상대값으로 단위지정하기
+	내부에 Text 포함된 tag 의 경우
+	Text 높이를 1rem(em)으로 설정하고 비율에 맞추어서 상대적으로 크기를 지정하기
+	*/
+	padding:2rem;
+	
+}
+nav{
+	background-color: 413416;
+	
+}
+ul {
+	margin:0px;
+	background-color: 3EBBA5;
+}
+li{
+	display :inline-block;
+	margin:0px;
+	padding:10px;
+	color: 413416;
+}
+li:hover{
+	background-color:white;
+	color: 3EBBA5;
+}
+table{
+	border-collapse:collapse;
+	width:80%;
+	margin:10px auto;
+}
+td,th{
+	border:1px solid gray;
+	padding:5px;
+	text-align: center;
+}
