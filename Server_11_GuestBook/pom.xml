@@ -6,7 +6,6 @@
   <packaging>war</packaging>
   <name>soparifly</name>
   <description>자바 방명록</description>
-  
   <dependencies>
 	<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
 <dependency>
@@ -14,11 +13,6 @@
     <artifactId>lombok</artifactId>
     <version>1.18.20</version>
     <scope>provided</scope>
-</dependency>
-<dependency>
-    <groupId>com.oracle</groupId>
-    <artifactId>ojdbc6</artifactId>
-    <version>11.2.0</version>
 </dependency>
   <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
 <dependency>
@@ -32,7 +26,7 @@
     <artifactId>jstl</artifactId>
     <version>1.2</version>
 </dependency>
-  
+
   </dependencies>
   <build>
     <plugins>
