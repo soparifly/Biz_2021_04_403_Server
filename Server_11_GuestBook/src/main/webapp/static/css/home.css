@@ -24,24 +24,7 @@ h1{
 	padding:2rem;
 	
 }
-nav{
-	background-color: 413416;
-	
-}
-ul {
-	margin:0px;
-	background-color: 3EBBA5;
-}
-li{
-	display :inline-block;
-	margin:0px;
-	padding:10px;
-	color: 413416;
-}
-li:hover{
-	background-color:white;
-	color: 3EBBA5;
-}
+
 table{
 	border-collapse:collapse;
 	width:80%;

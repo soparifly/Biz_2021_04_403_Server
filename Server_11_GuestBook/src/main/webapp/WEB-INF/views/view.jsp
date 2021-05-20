@@ -1,78 +1,62 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<c:set value="${pageContext.request.contextPath}" var="rootPath" />
-<link href="${rootPath}/static/css/home.css?ver=2021-05-19" rel="stylesheet"/>
+    pageEncoding="UTF-8"%>
+<%@ taglib	uri="http://java.sun.com/jsp/jstl/core" 
+		prefix="c" %>
+<c:set value="${pageContext.request.contextPath}" 
+			var="rootPath" />
+					    
 <!DOCTYPE html>
 <html>
-<style>
-div.view_btn {
-	width: 80%;
-	margin: 10px auto;
-	text-align: right;
-}
-
-div.view_btn button {
-	margin: 5px;
-	padding: 8px;
-	outline: none;
-	border: none;
-	color: write;
-}
-div.view_btn button:hover {
-	box-shadow: 2px;
-	
-}
-div.view_btn button:nth-child(1) {
-	background-color: green;
-}
-
-div.view_btn button:nth-child(2) {
-	background-color: blue;
-}
-
-div.view_btn button:nth-child(3) {
-	background-color: red;
-}
-</style>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-</head>
+<link href="${rootPath}/static/css/home.css?ver2021-05-20-001" 
+			rel="stylesheet" />
+
+<style>
+	table#gblist tr:hover {
+		cursor: pointer;
+		background-color: #ddd;
+	}
+</style>
+
 <script>
-
-
-
-
+document.addEventListener("DOMContentLoaded",function(){
+	document.querySelector("table#gblist")
+	.addEventListener("click",function(ev){
+		
+		// 가장 안쪽 tag(TD)의 이름을 가져와라
+		let tag_name = ev.target.tagName;
+		if(tag_name = "TD") {
+			let gb_seq = ev
+						.target
+						.closest("TR")
+						.dataset.seq
+			document.location.href
+			="${rootPath}/guest/view?gb_seq=" 
+					+ gb_seq						
+		}
+	})
+})
 </script>
+</head>
 <body>
-	<%@ include file="/WEB-INF/views/include_nav.jsp"%>
-	<table>
+	<%@ include file="/WEB-INF/views/include_nav.jsp" %>
+	<table id="gblist">
 		<tr>
-			<th>작성일자</th>
-			<td>${GB.gb_date }</td>
-			<th>작성일자</th>
-			<td>${GB.gb_time }</td>
+			<th>작성일</th>
+			<th>작성시각</th>
+			<th>작성자(email)</th>
 		</tr>
-		<tr>
-			<th>이름</th>
-			<td>${GB.gb_writer}</td>
-			<th>E-mail</th>
-			<td>${GB.gb_email }</td>
-		</tr>
-		<tr>
-			<td colspan="4">${GB.gb_content }</td>
-		</tr>
-		<div class="view_btn">
-			<button>처음으로</button>
-			<button>수정하기</button>
-			<button>삭제하기</button>
-
-
-
-		</div>
-
+		<c:forEach items="${GBLIST}" var="GB">
+			<tr data-seq="${GB.gb_seq}">
+				<td>${GB.gb_date}</td>
+				<td>${GB.gb_time}</td>
+				<td>${GB.gb_writer}</a>
+				</td>
+			</tr>
+		</c:forEach>
 	</table>
-
+	
 </body>
 </html>
