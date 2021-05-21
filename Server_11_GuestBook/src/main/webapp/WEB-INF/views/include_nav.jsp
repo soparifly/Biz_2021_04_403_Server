@@ -1,6 +1,41 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <style>
+
+/* 
+CSS를 사용하여 화면을 디자인할때
+항상 제일먼저 있어야 할 설정
+기본 HTML의 margin, padding을 clear(ReSet)하여
+이후에 작성된 CSS의 margin, padding을 원할히
+적용시키기 위함이다
+
+box-sizing: border-box; 
+Block type tag를 사용하여 화면을 그릴때
+padding, margin, border값을 지정할때
+좌 우로 벗어나서 그려지는 현상을 없애기 위한 설성 
+*/
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+h1.main {
+	color: white;
+	text-align: center;
+	background-color: green;
+	/*
+	HTML, CSS에서의 단위구조
+	dp, sp, pt, px : 절대값으로 단위 지정하기
+	
+	rem(em) : 상대값으로 단위 지정하기
+	내부에 Text 포함된 tag의 경우
+	text 높이를 1rem(em)으로 설정하고, 
+	비율에 맞추어서 상대적으로 크기를 지정하기
+	*/
+	padding: 2rem;
+}
+
 nav#main {
 	background-color: blue;
 }
@@ -22,30 +57,29 @@ nav#main {
 
 */
 nav#main  ul {
-	margin:0px;
+	margin: 0px;
 	background-color: blue;
 }
 
 nav#main li {
-	display :inline-block;
-	list-style : none;
+	display: inline-block;
+	list-style: none;
 	margin: 0px;
-	padding:10px;
-	color:white;
+	padding: 10px;
+	color: white;
 }
 
 nav#main li:hover {
 	background-color: gray;
-	color:black;
+	color: black;
 	cursor: pointer;
 }
 
 nav#main a {
 	display: inline-block; /* box style로 변경 */
-	color:inherit; /* 글자색은 a tag를 감싼 tag에서 상속 */
+	color: inherit; /* 글자색은 a tag를 감싼 tag에서 상속 */
 	text-decoration: none; /* text 에 언더라인 제거 */
 }
-
 </style>
 <script>
 	/*
@@ -53,10 +87,10 @@ nav#main a {
 	Tag로 둘러쌓인 모든 속성은 하나의 객체가 된다
 	
 	HTML 문서의 모든 객체의 시작점 객체는 document
-	*/
+	 */
 
-	document.addEventListener("DOMContentLoaded",function(){
-		
+	document.addEventListener("DOMContentLoaded", function() {
+
 		/*
 		상단 메뉴의 항목을 클릭했을때
 		url를 전환하여 다른 화면으로 점프하기
@@ -69,38 +103,38 @@ nav#main a {
 		nav tag를 클릭하면
 		선택된 li tag의 메뉴제목을 캐취하여
 		메뉴제목에 따라 필요한 page로 전환을 한다
-		*/
-		document
-		.querySelector("nav#main")
-		.addEventListener("click",function(ev) {
-			
-			let text = ev.target.textContent;
-			
-			alert(text + " 가 클릭됨!!!")
-			
-			let url = "${rootPath}"
-			if(text == "HOME") {
-				url += "/" 
-			} else if(text == "공지사항") {
-				url += "/notice"
-			} else if(text == "회사소개") {
-				url += "/profile"
-			} else if(text == "회원가입") {
-				url += "/join"
-			} else if(text == "로그인") {
-				url += "/login"
-			}
+		 */
+		document.querySelector("nav#main").addEventListener("click",
+				function(ev) {
 
-			document.location.href = url;
-			
-		});
+					let text = ev.target.textContent;
+
+					alert(text + " 가 클릭됨!!!")
+
+					let url = "${rootPath}"
+					if (text == "HOME") {
+						url += "/"
+					} else if (text == "공지사항") {
+						url += "/notice"
+					} else if (text == "회사소개") {
+						url += "/profile"
+					} else if (text == "회원가입") {
+						url += "/join"
+					} else if (text == "로그인") {
+						url += "/login"
+					}
+
+					document.location.href = url;
+
+				});
 	})
 </script>
 
 
+<h1 class="main">방명록 2021</h1>
 
-	
-<h1>방명록 2021</h1>
+
+
 <%-- 메뉴를 설정할때 사용하는 tag --%>
 <%-- div 라는 tag사용하여 layout을 설정했는데 --%>
 <%-- HTML 5에서는 Symatec(의미있는 이름으로) tag를 --%>
