@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: 1_GuestBook
+Bundle-SymbolicName: Server_11.1_GuestBook
+Bundle-Version: 1.0.0.qualifier
+Bundle-ClassPath: 1_GuestBook.jar,
+ kimsojeong/work/MYjdk/jstl-1.2.jar,
+ kimsojeong/work/MYjdk/lombok.jar,
+ kimsojeong/work/MYjdk/ojdbc6.jar
+Automatic-Module-Name: Server.11.1.GuestBook
+Bundle-RequiredExecutionEnvironment: JavaSE-15
