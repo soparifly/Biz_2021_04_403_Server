@@ -112,6 +112,7 @@ form.v1 button:hover {
 					alert("저장버튼" + gb_writer.value + "\n" + gb_email.value
 							+ "\n" + gb_password.value + "\n"
 							+ gb_content.value + "\n")
+							
 						dom.querySelector("form.v1").submit();
 				})
 				
