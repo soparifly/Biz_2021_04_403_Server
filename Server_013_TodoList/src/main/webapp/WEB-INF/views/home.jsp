@@ -6,6 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Insert title here</title>
 </head>
 <style>
@@ -15,7 +16,7 @@
 	padding: 0;
 }
 
-h1, form.doit {
+h1, form.doit, table.td_list {
 	width: 50%;
 	margin: 10px auto;
 	border-radius: 5px;
@@ -50,7 +51,117 @@ form.doit input {
 form.doit input:hover {
 	background-color: #eee;
 }
+
+table.td_list {
+	border-collapse: collape;
+	border-spaction: 0;
+}
+
+table.td_list td {
+	padding: 7px;
+	border-top: 1px solid green;
+	cursor: pointer;
+	/*
+	실험적인 css: 적용하기
+	user-select:none은 text dblcick했을때
+	선택박스가 나타지 않도록 적용 
+	그냥 user-select: 기능이 적용되는 브라우저용
+	-webkit-:크롬, google, sapari 적용
+	-moz-:파이어폭스계열
+	-ms-: explorer
+	-o- : opera
+	*/
+	user-select:none;
+	-webkt-user-user-select:none;
+	-moz-user-select:none;
+	-ms-user-select:none;
+	-o-user-select:none;
+}
+/* table 의 마지막 라인(tr)에  포함된 td에만 */
+table.td_list tr:last-child td {
+	border-bottom: 3px solid green;
+}
+
+table.td_list  td.count {
+	font-size: 20px;
+	text-align: right;
+	width: 5%;
+	color: blue;
+}
+
+table.td_list td.sdate, table.td_list td.edate {
+	font-size: 10px;
+	text-align: center;
+	width: 20%;
+}
+
+table.td_list td.doti {
+	font-size: 30px;
+	text-align: left;
+	/* 두줄이상의 본문을 1줄로 줄이고 말줄임표 표현
+table이아닌 box형 tag의 경우
+max-width대신 width값을 설정해야한다
+아래 4가지 속성을 동시에 적용해야된다 */
+	max-width: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.through-text {
+	text-decoration: line-through red;
+}
+/*화면 폭이 480px 이하 (max)일때 적용할 style*/
+@media screen and (max-width:480px){
+ h1,form.doit, table.td_list{
+ width: 95%;
+ margin:0 auto;
+ 
+ }
+/*화면 폭이 800px 이하 (max)일때 적용할 style*/
+@media screen and (max-width:800px){
+ h1,form.doit, table.td_list{
+ width: 70%;
+ margin:0 auto;
+ 
+ }
+
+}
 </style>
+<script>
+ document.addEventListener("DOMContentLoaded",()=>{
+	
+	 document.querySelector("table.td_list").addEventListener("dblclick",(ev)=>{
+		 ev.preventDefault()
+		 
+		 
+		 
+		 let tagName= ev.target.tagName
+		 if(tagName=="TD"){
+			 // 클릭된 TD tag를 감싸고 있는 TR객체를 확인하기
+			 let tr= ev.target.closest("TR").dataset
+			 //let seq = ev.target.closest("TR").dataset.seq
+			 let td_sseq=tr.sseq
+			 let td_edate=tr.edate
+			 
+			 let confirm_msg = td_edate 
+			 						?  
+					 			"완료를 취소합니다"
+					 			:"TODO를 완료했나요?";
+					 					
+					if(confirm(confirm_msg)){
+						//document 는 생략가능하다
+						     location.href=
+							"${rootPath}/expire?td_sseq="+td_sseq
+					}
+		 }
+		 alert(tagName);
+	 })
+ 	})
+ 
+
+
+</script>
 <body>
 	<h1>TO DO List</h1>
 	<div class="input">
@@ -76,5 +187,16 @@ rootPath = http://localhost:8080/todo
 			<input name="td_doit" placeholder="할일을 입력한 후 Enter">
 		</form>
 	</div>
+	<div class="msg">${ERROR}${COMP}</div>
+	<table class="td_list">
+		<c:forEach items="${TDLIST}" var="TD" varStatus="ST">
+			<tr data-seq="${TD.td_sseq}" data-edate="${TD.td_edate}">
+				<td class="count">${ST.count}</td>
+				<td class="sdate">${TD.td_sdate}<br />${TD.td_stime}</td>
+				<td class="doit ${empty TD.edate ? '':'through-text' }">${TD.td_doit}</td>
+				<td class="edate">${TD.td_edate}<br />${TD.td_etime}</td>
+			</tr>
+		</c:forEach>
+	</table>
 </body>
 </html>

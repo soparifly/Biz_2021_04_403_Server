@@ -14,18 +14,45 @@ import javax.servlet.http.HttpServletResponse;
 import com.callor.todo.command.HomeCommandImplV1;
 import com.callor.todo.command.TodoCommand;
 import com.callor.todo.command.TodoCommandImplV1;
-
+/*
+ * Servlet App 에서는 Servelt(Controller)클래스를 
+ * 다수 선언하고, 필요할때마다 URI(URL)을 mapping 하여(mapping : root로 요청을하면 처리를 할수 잇도록 하겠다는뜻)
+ * 기능을 수행할 수 있도록 한다
+ * 
+ * 하지만 업무 처리가 커지면
+ *	프로젝트가 커지면 다수의 Controller가 생성되고
+ *그때마다 , URI mapping을 하는데 많은 어려움을 겪을 수 있다. 
+ * 똑같은 객체를 상속 받고, 같은 mehtod(doGet, Post)를 사용하여 작성하는데
+ * 관리가 어려워지기 시작한다
+ * 
+ * URI Mapping을 한곳으로 집중하고 
+ * POJO(Plan Old Java Object, 어떤 클래스를 상속 받지 않은 일반적인 자바 클래스 형식의 코드 
+ * 프로젝트를 진행하도록하는것 
+ * Mapping에 따라서 컨트롤러를 분리한다는 뜻에서 
+ * Dispatcher Servlet Controller라고 한다  
+ */
 @WebServlet("/")
 public class FrontController extends HttpServlet {
-
+	//URI Mapping을 선언하여 
+	//URI 에 대한 객체를 준비하여 보관할 장소
+	//						Object를 사용할수 있지만 오
+//							브젝트는 실행되는데 상대적으로 연산비용이 너무
+//					 		많이 소요되는 클래스객체 이므로 조금더 효율적으로 사용하기 위하여
+//							인터페이스를 선언해두었다 
+//						 	이 인터페이스는 commands객체들의 prototype으로 선언되어있고
+//							여기의 commands mapper객체에는 여러가지 command객체들을 저장해둘수 있다
+//							
 	protected Map<String, TodoCommand> commands;
 
 //	FrontController가 최초 호출될때 한번 실행되어서
 //	여러가지 변수등을 초기화하는코드
 	@Override
+	//첫번째 컨트롤러 메서드 
+//	Servlet이 실행되면 처음으로 불러오는 메서드 
+//
+//	Command.put(요청, 요청을처리할 컨트롤러)
 	public void init(ServletConfig config) throws ServletException {
 		// TODO Auto-generated method stub
-	
 		commands = new HashMap<String, TodoCommand>();
 		
 		/*
@@ -42,8 +69,11 @@ public class FrontController extends HttpServlet {
 		 * 
 		 */
 		commands.put("/insert",new TodoCommandImplV1());
+		commands.put("/expire",new TodoCommandImplV1());
 	}
-//	doGet(), doPst()로 분리해서 요청을 처리하던 방식을 한개의 메서드에서 동시에 처리하기
+//	doGet(), doPst()로 분리해서 요청을 처리하던 방식을 한개의 메서드에서 동시에 처리하는 메서드
+	
+
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
